@@ -1,7 +1,7 @@
 const axios = require('axios')
 const keccak256 = require('js-sha3').keccak256;
 
-const isValidBtgAddress = async (address) => {
+export const isValidBtgAddress = async (address) => {
   const url = 'https://bitcoinhomie.com/api/isvalid_btg_address'
   const res = await axios.post(url, {address})
   return res.data.isvalid || false
@@ -47,10 +47,12 @@ var isChecksumAddress = function (address) {
   return true;
 };
 
-const isValidEthAddress = async (address) => {
+export const isValidEthAddress = async (address) => {
   return Promise.resolve(isEthAddress(address))
 }
 
-const address = '0x82f4e677e244bb3674e5177cn5d409e98181b6ea'
 
-isValidEthAddress(address).then(v => console.log(v))
+export default {
+  isValidBtgAddress,
+  isValidEthAddress
+}

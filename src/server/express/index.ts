@@ -122,7 +122,7 @@ if (env === 'production' || env === 'staging') {
 // #    API ROUTE  -->  CONTROLLER
 // #######################################
 // Add your controller(s) here
-app.use('/api/user', Controller);
+app.use('/api', Controller);
 
 // #######################################
 // #    ERROR HANDLING - DO NOT MOVE

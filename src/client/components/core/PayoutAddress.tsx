@@ -3,8 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import BaseStyle from '../style/BaseStyle';
 import CoinImages from '../images/CoinImages';
-
-// import {isValidBtcAddress} from '../../../helpers/ApiHelper'
+import {isValidBtgAddress, isValidEthAddress} from '../../helpers/ApiHelper'
 
 interface Props {
   style?: React.CSSProperties
@@ -77,17 +76,26 @@ export const PayoutAddress: FC<Props> = (props) => {
             const value = e.target.value ? e.target.value.trim() : ''
             ;(async () => {
               try {
+                setAddress(value)
+                if (value.length > 25) {
+                  if (props.coin === "BTG") {
+                    const {isvalid} = await isValidBtgAddress(value)
+                    console.log('isValidBtgAddress:', isvalid)
+                    setIsValidAddress(isvalid)
 
-                // if (value.length > 25) {
-                //   const {isvalid} = await isValidBtcAddress(value)
-                //   console.log('isValidBtcAddress:', isvalid)
+                  }
+                  else if (props.coin === "ETH") {
+                    const {isvalid} = await isValidEthAddress(value)
+                    console.log('isValidEthAddress:', isvalid)
+                    setIsValidAddress(isvalid)
+                  } else {
+                    setIsValidAddress(false)
+                  }
                   
-                //   setPristine(false)
-                // } else {
-                  
-                //   setPristine(value.length === 0)
-                // }
-
+                  setPristine(false)
+                } else {
+                  setPristine(value.length === 0)
+                }
               } catch (err) {
                 console.log(err)
               }
