@@ -1,0 +1,109 @@
+import React, { FC, useState } from 'react';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import BaseStyle from '../style/BaseStyle';
+import CoinImages from '../images/CoinImages';
+
+// import {isValidBtcAddress} from '../../../helpers/ApiHelper'
+
+interface Props {
+  style?: React.CSSProperties
+  coin: string
+}
+
+const style = new BaseStyle();
+
+export const PayoutAddress: FC<Props> = (props) => {
+
+  const coinImage = CoinImages[props.coin].small
+
+  const [pristine, setPristine] = useState(true)
+  const [isValidAddress, setIsValidAddress] = useState(true)
+  const [address, setAddress] = useState('')
+
+  let helperText = '';
+  const error = !pristine && !isValidAddress
+  if (error) {
+    helperText = `invalid ${props.coin} address`
+  }
+
+  const itemStyle = {
+    //border: '1px solid BLACK',
+    height: 120,
+    width: '100%',
+    justifyContent: 'center',
+  }
+
+  return (
+    <Grid container item xs={12} sm={12} style={itemStyle}>
+
+      <div style={{
+        ...style.centerRow,
+        border: '1px solid BLACK',
+        borderRadius: 10,
+        width: '100%',
+        // marginLeft: '4%',
+        // marginRight: '4%',
+        // marginBottom: '2%',
+        justifyContent: 'flex-start',
+        maxWidth: 520
+      }}>
+
+        <div style={{
+          ...style.centerRow,
+          // paddingLeft: 15,
+          //border: '1px solid RED',
+          width: '100%',
+          paddingLeft: '5%'
+        }}>
+
+        <img style={{
+          width: 32, 
+          height: 32,
+          // border: '1px solid RED',
+          marginTop: 14,
+          marginRight: 5
+        }} src={coinImage}/>
+
+        <TextField
+          error={error}
+          style={{width: '90%', paddingRight: 30}}
+          inputProps={{style: {fontSize: screen.width > 600 ? 28 : 22, border: '0px solid RED', height: 35}}}
+          InputLabelProps={{style: {fontSize: screen.width > 600 ? 22 : 22}}}
+          label={`${props.coin} Wallet Address`}
+          margin="none"
+          value={address}
+          onChange={e => {
+            const value = e.target.value ? e.target.value.trim() : ''
+            ;(async () => {
+              try {
+
+                // if (value.length > 25) {
+                //   const {isvalid} = await isValidBtcAddress(value)
+                //   console.log('isValidBtcAddress:', isvalid)
+                  
+                //   setPristine(false)
+                // } else {
+                  
+                //   setPristine(value.length === 0)
+                // }
+
+              } catch (err) {
+                console.log(err)
+              }
+
+            })()
+              .catch(err => console.log(err))
+          }}
+          helperText={helperText}
+        />
+        </div>
+
+      </div>
+
+    </Grid>
+  )
+
+}
+
+export default PayoutAddress
