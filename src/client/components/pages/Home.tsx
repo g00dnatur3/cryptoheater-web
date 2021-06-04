@@ -9,16 +9,12 @@ import {PayoutAddress} from '../core/PayoutAddress'
 // tslint:disable-next-line: variable-name
 export const Home: FC<{}> = () => {
 
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [selectedCoin, setSelectedCoin] = useState('BTG')
-
-  const doChecks = async () => {
-
-    setLoading(false)
-  }
+  const [showSaveButton, setShowSaveButton] = useState(false)
 
   useEffect(() => {
-    doChecks()
+
   }, [])
 
   const loadingDiv = () => (
@@ -61,16 +57,12 @@ export const Home: FC<{}> = () => {
       <div style={{
         //border: '1px solid RED',
       }}>
-        
         {dropDown()}
         {selectedCoin ? 
         <div style={{marginTop: 20, textAlign: 'center'}}>
-          <PayoutAddress coin={selectedCoin} />
-          <Button style={{marginTop: 25}} disabled size="lg" color="primary">Save</Button>
+          <PayoutAddress onChange={isvalid => setShowSaveButton(isvalid)} coin={selectedCoin} />
+          <Button disabled={!showSaveButton} style={{marginTop: 25}} size="lg" color="primary">Save</Button>
         </div>
-        
-        
-        
         : null}
       </div>
     )

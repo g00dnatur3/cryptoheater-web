@@ -7,7 +7,8 @@ import {isValidBtgAddress, isValidEthAddress} from '../../helpers/ApiHelper'
 
 interface Props {
   style?: React.CSSProperties
-  coin: string
+  coin: string,
+  onChange: (isvalid: boolean) => void
 }
 
 const style = new BaseStyle();
@@ -17,8 +18,19 @@ export const PayoutAddress: FC<Props> = (props) => {
   const coinImage = CoinImages[props.coin].small
 
   const [pristine, setPristine] = useState(true)
-  const [isValidAddress, setIsValidAddress] = useState(true)
+  const [isValidAddress, _setIsValidAddress] = useState(false)
   const [address, setAddress] = useState('')
+
+  const setIsValidAddress = (isvalid) => {
+
+    console.log('setIsValidAddress:', isvalid)
+
+    _setIsValidAddress(isvalid)
+    props.onChange(isvalid)
+  }
+
+  console.log('isValidAddress:', isValidAddress)
+  console.log('pristine:', pristine)
 
   let helperText = '';
   const error = !pristine && !isValidAddress
@@ -76,13 +88,13 @@ export const PayoutAddress: FC<Props> = (props) => {
             const value = e.target.value ? e.target.value.trim() : ''
             ;(async () => {
               try {
+                console.log('setAddress')
                 setAddress(value)
                 if (value.length > 25) {
                   if (props.coin === "BTG") {
                     const {isvalid} = await isValidBtgAddress(value)
                     console.log('isValidBtgAddress:', isvalid)
                     setIsValidAddress(isvalid)
-
                   }
                   else if (props.coin === "ETH") {
                     const {isvalid} = await isValidEthAddress(value)
@@ -91,15 +103,16 @@ export const PayoutAddress: FC<Props> = (props) => {
                   } else {
                     setIsValidAddress(false)
                   }
-                  
                   setPristine(false)
                 } else {
+                  if (value.length > 0) {
+                    setIsValidAddress(false)
+                  }
                   setPristine(value.length === 0)
                 }
               } catch (err) {
                 console.log(err)
               }
-
             })()
               .catch(err => console.log(err))
           }}
