@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, forwardRef, useImperativeHandle } from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import BaseStyle from '../style/BaseStyle';
@@ -8,12 +8,12 @@ import {isValidBtgAddress, isValidEthAddress} from '../../helpers/ApiHelper'
 interface Props {
   style?: React.CSSProperties
   coin: string,
-  onChange: (isvalid: boolean) => void
+  onChange: (isvalid: boolean, address: string) => void
 }
 
 const style = new BaseStyle();
 
-export const PayoutAddress: FC<Props> = (props) => {
+export const PayoutAddress = forwardRef((props: Props, ref) => {
 
   const coinImage = CoinImages[props.coin].small
 
@@ -21,12 +21,15 @@ export const PayoutAddress: FC<Props> = (props) => {
   const [isValidAddress, _setIsValidAddress] = useState(false)
   const [address, setAddress] = useState('')
 
-  const setIsValidAddress = (isvalid) => {
+  useImperativeHandle(ref, () => ({
+    clearAddress() {
+      setAddress('')
+      setPristine(true)
+    }
+  }));
 
-    console.log('setIsValidAddress:', isvalid)
-
+  const setIsValidAddress = (isvalid,) => {
     _setIsValidAddress(isvalid)
-    props.onChange(isvalid)
   }
 
   console.log('isValidAddress:', isValidAddress)
@@ -88,18 +91,19 @@ export const PayoutAddress: FC<Props> = (props) => {
             const value = e.target.value ? e.target.value.trim() : ''
             ;(async () => {
               try {
-                console.log('setAddress')
                 setAddress(value)
                 if (value.length > 25) {
                   if (props.coin === "BTG") {
                     const {isvalid} = await isValidBtgAddress(value)
                     console.log('isValidBtgAddress:', isvalid)
                     setIsValidAddress(isvalid)
+                    props.onChange(isvalid, value)
                   }
                   else if (props.coin === "ETH") {
                     const {isvalid} = await isValidEthAddress(value)
                     console.log('isValidEthAddress:', isvalid)
                     setIsValidAddress(isvalid)
+                    props.onChange(isvalid, value)
                   } else {
                     setIsValidAddress(false)
                   }
@@ -125,6 +129,6 @@ export const PayoutAddress: FC<Props> = (props) => {
     </Grid>
   )
 
-}
+})
 
 export default PayoutAddress

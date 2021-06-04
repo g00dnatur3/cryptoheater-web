@@ -1,10 +1,11 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, useRef } from 'react';
 import { headerStyle, contentStyle } from '../styles'
 import { Alert, Spinner, Button } from 'reactstrap';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import {PayoutAddress} from '../core/PayoutAddress'
+import {loadSettings, saveSettings} from '../../helpers/ApiHelper'
 
 // tslint:disable-next-line: variable-name
 export const Home: FC<{}> = () => {
@@ -12,13 +13,36 @@ export const Home: FC<{}> = () => {
   const [loading, setLoading] = useState(false)
   const [selectedCoin, setSelectedCoin] = useState('BTG')
   const [showSaveButton, setShowSaveButton] = useState(false)
+  const [existingSettings, setExistingSettings] = useState(undefined)
+  const [saveSuccess, setSaveSuccess] = useState(false)
+  const [address, setAddress] = useState('')
+  const payoutAddressRef = useRef();
 
   useEffect(() => {
-
+    if (!existingSettings) {
+      setLoading(true)
+      loadSettings().then(val => {
+        if (val) {
+          if (val.walletAddress && val.coin) {
+            setExistingSettings(val)
+            setShowSaveButton(true)
+          }
+        } else {
+          setExistingSettings({})
+        }
+        setLoading(false)
+      }).catch(err => {
+        setExistingSettings({})
+        setLoading(false)
+        console.log(err)
+      })
+    }
   }, [])
 
   const loadingDiv = () => (
-    <Spinner color="primary" style={{ width: '5rem', height: '5rem' }} type="grow" />
+    <div style={contentStyle}>
+      <Spinner color="primary" style={{ width: '5rem', height: '5rem' }} type="grow" />
+    </div>
   )
 
   const dropDown = () => (
@@ -38,7 +62,13 @@ export const Home: FC<{}> = () => {
           native
           value={selectedCoin}
           onChange={(e) => {
-            setSelectedCoin(e.target.value.toString().trim())
+            const newCoin = e.target.value.toString().trim()
+            if (newCoin !== selectedCoin) {
+              setSelectedCoin(newCoin)
+              setAddress('')
+              setShowSaveButton(false)
+              payoutAddressRef.current.clearAddress()
+            }
           }}
           inputProps={{
             name: 'coin',
@@ -53,6 +83,10 @@ export const Home: FC<{}> = () => {
   )
 
   const settingsForm = () => {
+    const onSaveClick = async () => {
+      await saveSettings(address, selectedCoin)
+      setSaveSuccess(true)
+    }
     return (
       <div style={{
         //border: '1px solid RED',
@@ -60,8 +94,11 @@ export const Home: FC<{}> = () => {
         {dropDown()}
         {selectedCoin ? 
         <div style={{marginTop: 20, textAlign: 'center'}}>
-          <PayoutAddress onChange={isvalid => setShowSaveButton(isvalid)} coin={selectedCoin} />
-          <Button disabled={!showSaveButton} style={{marginTop: 25}} size="lg" color="primary">Save</Button>
+          <PayoutAddress ref={payoutAddressRef} onChange={(isvalid, address) => {
+            setShowSaveButton(isvalid)
+            setAddress(address)
+          }} coin={selectedCoin} />
+          <Button onClick={onSaveClick} disabled={!showSaveButton} style={{marginTop: 25}} size="lg" color="primary">Save</Button>
         </div>
         : null}
       </div>
@@ -77,9 +114,13 @@ export const Home: FC<{}> = () => {
       alignItems: 'center',
       justifyContent: 'center',
     }}>
-      {
-        !loading ? settingsForm() : loadingDiv()
-      }
+      {settingsForm()}
+    </div>
+  )
+
+  const successDiv = () => (
+    <div style={contentStyle}>
+      <Alert style={{fontSize: screen.width > 600 ? 22 : 18}} color="success">Crypto Settings Saved &nbsp; ✅</Alert>
     </div>
   )
 
@@ -92,7 +133,7 @@ export const Home: FC<{}> = () => {
       <div style={{fontSize: screen.width > 600 ? 34 : 30}}><b>Crypto Settings</b></div>
     </div>
 
-    {contentDiv()}
+    {saveSuccess ? successDiv() : loading ? loadingDiv() : contentDiv()}
 
     <div style={{
       //border: '1px solid BLUE',
