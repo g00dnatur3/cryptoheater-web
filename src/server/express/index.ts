@@ -54,55 +54,7 @@ app.use(express.static('public'));
 
 // app.use(cookieParser())
 
-
-const util = require('util');
-//const fs = require('fs');
-const writeFile = util.promisify(fs.writeFile);
-const readFile = util.promisify(fs.readFile);
-const fileExists = util.promisify(fs.exists);
-
-const trafficCache = {}
-
-const saveTrafficCacheToDisk = async () => {
-  console.log()
-  console.log('INTERVAL - saveTrafficCacheToDisk')
-  console.log()
-  const d = new Date()
-  const file = `${process.env.PWD}/traffic/${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}.json`
-  const exists = await fileExists(file)
-  if (!exists) {
-    await writeFile(file, JSON.stringify(trafficCache))
-    for (const key of Object.keys(trafficCache)) {
-      delete trafficCache[key]
-    }
-  } else {
-    // update existing with new cache data
-    const existingCache =  JSON.parse((await readFile(file)).toString())
-    for (const key of Object.keys(trafficCache)) {
-      if (existingCache[key]) {
-        existingCache[key]++
-      } else {
-        existingCache[key] = 0
-      }
-      delete trafficCache[key]
-    }
-    await writeFile(file, JSON.stringify(existingCache))
-  }
-}
-
-setInterval(saveTrafficCacheToDisk, 300 * 1000)
-
-const recordTraffic = (req: any) => {
-  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-  if (trafficCache[ip]) {
-    trafficCache[ip]++
-  } else {
-    trafficCache[ip] = 0
-  }
-}
-
 const routeToIndex = (req: any, res: any) => {
-  recordTraffic(req)
   const index: string = '../../../public/index.html';
   res.sendFile(path.join(__dirname, index), (err: any) => {
     if (err) { res.status(500).send(err); }

@@ -1,4 +1,4 @@
-import React, { FC, useState, forwardRef, useImperativeHandle } from 'react';
+import React, { useEffect, useState, forwardRef, useImperativeHandle } from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import BaseStyle from '../style/BaseStyle';
@@ -8,6 +8,7 @@ import {isValidBtgAddress, isValidEthAddress} from '../../helpers/ApiHelper'
 interface Props {
   style?: React.CSSProperties
   coin: string,
+  existingAddress: string,
   onChange: (isvalid: boolean, address: string) => void
 }
 
@@ -31,6 +32,12 @@ export const PayoutAddress = forwardRef((props: Props, ref) => {
   const setIsValidAddress = (isvalid,) => {
     _setIsValidAddress(isvalid)
   }
+
+  useEffect(() => {
+    if (props.existingAddress && !address) {
+      setAddress(props.existingAddress)
+    }
+  }, [])
 
   console.log('isValidAddress:', isValidAddress)
   console.log('pristine:', pristine)

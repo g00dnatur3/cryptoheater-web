@@ -11,12 +11,7 @@ import {loadSettings, saveSettings} from '../../helpers/ApiHelper'
 export const Home: FC<{}> = () => {
 
   const [loading, setLoading] = useState(false)
-  const [selectedCoin, setSelectedCoin] = useState('BTG')
-  const [showSaveButton, setShowSaveButton] = useState(false)
   const [existingSettings, setExistingSettings] = useState(undefined)
-  const [saveSuccess, setSaveSuccess] = useState(false)
-  const [address, setAddress] = useState('')
-  const payoutAddressRef = useRef();
 
   useEffect(() => {
     if (!existingSettings) {
@@ -25,16 +20,18 @@ export const Home: FC<{}> = () => {
         if (val) {
           if (val.walletAddress && val.coin) {
             setExistingSettings(val)
-            setShowSaveButton(true)
+          } else {
+            window.location.href = '/crypto-settings'
           }
         } else {
-          setExistingSettings({})
+          window.location.href = '/crypto-settings'
         }
         setLoading(false)
       }).catch(err => {
         setExistingSettings({})
         setLoading(false)
         console.log(err)
+        window.location.href = '/crypto-settings'
       })
     }
   }, [])
@@ -45,95 +42,57 @@ export const Home: FC<{}> = () => {
     </div>
   )
 
-  const dropDown = () => (
-    <div style={{marginTop: 20, textAlign: 'center'}}>
-      <InputLabel style={{
-        fontSize: screen.width > 600 ? 28 : 22,
-        //border: '1px solid RED', 
-        marginBottom: 10,
-      }}
-      >Choose Coin to Mine</InputLabel>
-      <FormControl>
-        <Select
-          style={{
-            //border: '1px solid RED',
-            fontSize: screen.width > 600 ? 28 : 22
-          }}
-          native
-          value={selectedCoin}
-          onChange={(e) => {
-            const newCoin = e.target.value.toString().trim()
-            if (newCoin !== selectedCoin) {
-              setSelectedCoin(newCoin)
-              setAddress('')
-              setShowSaveButton(false)
-              payoutAddressRef.current.clearAddress()
-            }
-          }}
-          inputProps={{
-            name: 'coin',
-            id: 'coin-select',
-          }}
-        >
-          <option value="BTG">BTG (BitcoinGold)</option>
-          <option value="ETH">ETH (Ethereum)</option>
-        </Select>
-      </FormControl>
-    </div>
-  )
-
-  const settingsForm = () => {
-    const onSaveClick = async () => {
-      await saveSettings(address, selectedCoin)
-      setSaveSuccess(true)
-    }
-    return (
-      <div style={{
-        //border: '1px solid RED',
-      }}>
-        {dropDown()}
-        {selectedCoin ? 
-        <div style={{marginTop: 20, textAlign: 'center'}}>
-          <PayoutAddress ref={payoutAddressRef} onChange={(isvalid, address) => {
-            setShowSaveButton(isvalid)
-            setAddress(address)
-          }} coin={selectedCoin} />
-          <Button onClick={onSaveClick} disabled={!showSaveButton} style={{marginTop: 25}} size="lg" color="primary">Save</Button>
-        </div>
-        : null}
-      </div>
-    )
-  }
-
   const contentDiv = () => (
     <div style={{
       ...contentStyle,
       flexDirection: 'column',
       //border: '1px solid GREEN',
-      fontSize: 34,
+      fontSize: 40,
       alignItems: 'center',
       justifyContent: 'center',
+      fontWeight: 550
     }}>
-      {settingsForm()}
-    </div>
-  )
 
-  const successDiv = () => (
-    <div style={contentStyle}>
-      <Alert style={{fontSize: screen.width > 600 ? 22 : 18}} color="success">Crypto Settings Saved &nbsp; ✅</Alert>
+      <div style={{
+        border: '0px solid black',
+        padding: 15,
+        borderRadius: 10,
+        marginBottom: 20,
+        textAlign: 'center'
+      }}>
+        <Button 
+          onClick={() => {
+            window.location.href = '/crypto-settings'
+          }}
+          style={{padding: 15, width: 250, height: 80}} color="primary" size="lg">Edit Crypto Settings</Button>
+      </div>
+
+
+      <div style={{
+        padding: 15,
+        borderRadius: 10,
+        border: '0px solid black',
+        marginBottom: 20,
+        textAlign: 'center'
+      }}>
+        <Button style={{padding: 15, width: 250, height: 80}} color="primary" size="lg">See Mining Stats</Button>
+      </div>
+
+
     </div>
   )
 
   return (<div style={{
     paddingLeft: '2.2%',
-    paddingRight: '2.2%'
+    paddingRight: '2.2%',
+    backgroundColor: 'IVORY'
   }}>
 
     <div style={headerStyle}>
-      <div style={{fontSize: screen.width > 600 ? 34 : 30}}><b>Crypto Settings</b></div>
+      <div style={{fontSize: screen.width > 600 ? 34 : 30}}><b>Crypto Info</b></div>
     </div>
 
-    {saveSuccess ? successDiv() : loading ? loadingDiv() : contentDiv()}
+    {loading ? loadingDiv() : contentDiv()}
 
     <div style={{
       //border: '1px solid BLUE',
