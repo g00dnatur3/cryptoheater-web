@@ -23,9 +23,6 @@ import errorHanlder from './middleware/errorHandler';
 // import cookieParser from 'cookie-parser'
 // import moment from 'moment'
 
-import { v4 as uuidv4 } from 'uuid';
-import ws from 'ws';
-
 // -- IMPORT CONTROLLERS HERE --
 import Controller from './controllers/Controller';
 
