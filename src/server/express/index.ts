@@ -44,8 +44,8 @@ app.use(express.static('public'));
 // app.use(cookieParser())
 
 const routeToIndex = (req: any, res: any) => {
-  const index: string = '../../../public/index.html';
-  res.sendFile(path.join(__dirname, index), (err: any) => {
+  const indexPath = process.cwd() + '/public/index.html'
+  res.sendFile(path.join(__dirname, indexPath), (err: any) => {
     if (err) { res.status(500).send(err); }
   });
 }
@@ -58,7 +58,6 @@ const routeToIndex = (req: any, res: any) => {
   // If you update src/client/app.tsx, then you MUST update here (production only)
   app.use('/crypto-settings', routeToIndex)
   app.use('/home', routeToIndex);
-  app.use('/', routeToIndex);
 //}
 
 // #######################################

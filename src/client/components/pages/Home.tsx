@@ -1,10 +1,6 @@
 import React, { FC, useState, useEffect, useRef } from 'react';
 import { headerStyle, contentStyle } from '../styles'
 import { Alert, Spinner, Button } from 'reactstrap';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import {PayoutAddress} from '../core/PayoutAddress'
 import {loadSettings, saveSettings} from '../../helpers/ApiHelper'
 
 // tslint:disable-next-line: variable-name
@@ -17,6 +13,7 @@ export const Home: FC<{}> = () => {
     if (!existingSettings) {
       setLoading(true)
       loadSettings().then(val => {
+        console.log('loaded-settings:', val)
         if (val) {
           if (val.walletAddress && val.coin) {
             setExistingSettings(val)

@@ -38,6 +38,7 @@ router.post('/isvalid_btg_address', async (req: Request, res: Response, next: Ne
 })
 
 router.get('/load', async (req: Request, res: Response, next: NextFunction) => {
+  console.log('got here load')
   try {
     const settings = await loadSettings()
     res.status(200).send(settings || {})

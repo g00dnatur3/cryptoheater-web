@@ -1,7 +1,7 @@
 import { fileExists, isDirectory, deleteFile, mkdir, writeFile, readFile } from './fs'
 
-const homeDir = require('os').homedir();
-const settingsDir = `${homeDir}/.cryptoheater`
+// const homeDir = require('os').homedir();
+const settingsDir = `/home/user/.cryptoheater`
 const settingsFile = `${settingsDir}/settings.json`
 
 export const saveSettings = async (settings) => {
@@ -35,11 +35,16 @@ export const saveSettings = async (settings) => {
 export const loadSettings = async () => {
   const exists = await fileExists(settingsFile)
   if (exists) {
+    console.log('settings found:', settingsFile)
     try {
       const jsonData = await readFile(settingsFile, { encoding: 'utf8' })
       return JSON.parse(jsonData)
     }
-    catch (err) {}
+    catch (err) {
+      console.log(err)
+    }
+  } else {
+    console.log('settings not found:', settingsFile)
   }
 }
 

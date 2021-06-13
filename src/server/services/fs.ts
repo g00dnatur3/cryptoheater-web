@@ -1,4 +1,5 @@
 const fs = require('fs').promises;
+const {execSync} = require('child_process')
 
 export const fileExists = async (file: string) => {
   //console.log('fileExists')
@@ -29,11 +30,13 @@ export const deleteFile = async (file: string) => {
 
 export const mkdir = async (file: string, opts?) => {
   console.log('mkdir:', file)
-  return await fs.mkdir(file, opts)
+  await fs.mkdir(file, opts)
+  execSync(`sudo chown user:user ${file}`)
 }
 
 export const writeFile = async (file: string, data, opts?) => {
-  return await fs.writeFile(file, data, opts)
+  await fs.writeFile(file, data, opts)
+  execSync(`sudo chown user:user ${file}`)
 }
 
 export const readFile = async (file: string, opts?) => {
