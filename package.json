@@ -15,7 +15,8 @@
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot --host 0.0.0.0",
     "server": "nodemon build/server/express/index.js",
     "dev": "rm -rf build && node_modules/.bin/tsc && npm run copy-all && concurrently --kill-others \"node_modules/.bin/tsc -w\" \"npm run server\" \"npm run client\"",
-    "init-schema": "cd schema && node bin/init-schema.js"
+    "init-schema": "cd schema && node bin/init-schema.js",
+    "dist": "npm run build-express && nexe build/server/express/index.js -r \"public/**/*\""
   },
   "author": "unknown",
   "license": "ISC",
