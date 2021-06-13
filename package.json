@@ -1,7 +1,7 @@
 {
-  "name": "warlock",
+  "name": "cryptoheater-web",
   "version": "0.0.1",
-  "description": "Warlock",
+  "description": "cryptoheater-web",
   "scripts": {
     "lint": "tslint 'src/**/*.ts?(x)'",
     "lint-fix": "tslint --fix 'src/**/*.ts?(x)'",

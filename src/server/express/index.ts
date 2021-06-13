@@ -1,12 +1,4 @@
-// process.env.AWS_ACCESS_KEY_ID = process.env.NODE_ENV === 'production' 
-//   ? void 0 : 'AKIAJLDK2WISXP3JDF7Q'
-// process.env.AWS_SECRET_ACCESS_KEY = process.env.NODE_ENV === 'production' 
-//   ? void 0 : 'a46rw0LxUIbL6iXVRjuBetf7yD2W/cJwu4valhOi'
-
-process.env.AWS_ACCESS_KEY_ID = 'AKIAJLDK2WISXP3JDF7Q'
-process.env.AWS_SECRET_ACCESS_KEY = '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'
-
-process.title = 'MAGE_WEBSITE'
+process.title = 'cryptoheater-web'
 
 import bodyParser from 'body-parser';
 import {NextFunction, Request, Response} from 'express';
