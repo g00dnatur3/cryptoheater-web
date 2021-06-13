@@ -62,10 +62,12 @@ const routeToIndex = (req: any, res: any) => {
 // #    CLIENT ROUTES  -->  REACT ROUTER
 // #######################################
 // Add forwarding to the clientside REACT-ROUTER --> src/client/app.tsx
-if (env === 'production' || env === 'staging') {
+//if (env === 'production' || env === 'staging') {
   // If you update src/client/app.tsx, then you MUST update here (production only)
+  app.use('/crypto-settings', routeToIndex)
   app.use('/home', routeToIndex);
-}
+  app.use('/', routeToIndex);
+//}
 
 // #######################################
 // #    API ROUTE  -->  CONTROLLER
@@ -91,7 +93,8 @@ app.use(errorHanlder);
 //   rejectUnauthorized: false,
 // };
 
-let port = 9091; // dev-port
+//let port = 9091; // dev-port
+let port = 80; // dev-port
 let httpsServer;
 
 if (env === 'production') {

@@ -4,6 +4,8 @@ logs
 npm-debug.log*
 coverage
 
+cryptoheater-web
+
 src/client/**/*.js
 src/model/**/*.js
 src/utils/**/*.js
