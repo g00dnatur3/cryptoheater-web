@@ -44,8 +44,8 @@ app.use(express.static('public'));
 // app.use(cookieParser())
 
 const routeToIndex = (req: any, res: any) => {
-  const indexPath = process.cwd() + '/public/index.html'
-  res.sendFile(path.join(__dirname, indexPath), (err: any) => {
+  const index: string = '../../../public/index.html';
+  res.sendFile(path.join(__dirname, index), (err: any) => {
     if (err) { res.status(500).send(err); }
   });
 }

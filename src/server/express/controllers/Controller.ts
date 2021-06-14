@@ -52,10 +52,11 @@ router.get('/load', async (req: Request, res: Response, next: NextFunction) => {
 router.post('/save', async (req: Request, res: Response, next: NextFunction) => {
   log.info('/save body', req.body)
   try {
-    const {walletAddress, coin} = req.body
+    const {walletAddress, coin, pool} = req.body
     assert(walletAddress, 'walletAddress is missing')
     assert(coin, 'coin is missing')
-    await saveSettings({walletAddress, coin})
+    assert(pool, 'pool is missing')
+    await saveSettings({walletAddress, coin, pool})
     res.status(200).send()
   }
   catch (err) {

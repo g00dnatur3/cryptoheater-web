@@ -89,8 +89,8 @@ export const PayoutAddress = forwardRef((props: Props, ref) => {
         <TextField
           error={error}
           style={{width: '90%', paddingRight: 30}}
-          inputProps={{style: {fontSize: screen.width > 600 ? 28 : 22, border: '0px solid RED', height: 35}}}
-          InputLabelProps={{style: {fontSize: screen.width > 600 ? 22 : 22}}}
+          inputProps={{style: {fontSize: screen.width > 600 ? 26 : 20, border: '0px solid RED', height: 35}}}
+          InputLabelProps={{style: {fontSize: screen.width > 600 ? 22 : 20}}}
           label={`${props.coin} Wallet Address`}
           margin="none"
           value={address}

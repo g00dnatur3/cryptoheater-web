@@ -7,11 +7,23 @@ import Select from '@material-ui/core/Select';
 import {PayoutAddress} from '../core/PayoutAddress'
 import {loadSettings, saveSettings} from '../../helpers/ApiHelper'
 
+const MINING_POOLS = {
+  BTG: [
+    {name: 'MiningFool.com', value: 'btg.miningfool.com:3857'},
+    {name: '2miners.com', value: 'us-btg.2miners.com:4040'},
+  ],
+  ETH: [
+    {name: '2miners.com', value: 'us-eth.2miners.com:2020'},
+    {name: 'Ethermine.org', value: 'us2.ethermine.org:4444'},
+  ]
+}
+
 // tslint:disable-next-line: variable-name
 export const CryptoSettings: FC<{}> = () => {
 
   const [loading, setLoading] = useState(false)
   const [selectedCoin, setSelectedCoin] = useState('BTG')
+  const [selectedPool, setSelectedPool] = useState(MINING_POOLS['BTG'][0].value)
   const [showSaveButton, setShowSaveButton] = useState(false)
   const [existingSettings, setExistingSettings] = useState(undefined)
   const [saveSuccess, setSaveSuccess] = useState(false)
@@ -22,11 +34,13 @@ export const CryptoSettings: FC<{}> = () => {
     if (!existingSettings) {
       setLoading(true)
       loadSettings().then(val => {
+        console.log('loaded settings:', val)
         if (val) {
-          if (val.walletAddress && val.coin) {
+          if (val.walletAddress && val.coin && val.pool) {
             setExistingSettings(val)
             setSelectedCoin(val.coin)
             setAddress(val.walletAddress)
+            setSelectedPool(val.pool)
             setShowSaveButton(true)
           }
         } else {
@@ -47,10 +61,49 @@ export const CryptoSettings: FC<{}> = () => {
     </div>
   )
 
-  const dropDown = () => (
-    <div style={{marginTop: 20, textAlign: 'center'}}>
+  const getMiningPoolOptions = (coin) => (
+    <React.Fragment>
+      {MINING_POOLS[coin].map(opt => <option key={opt.name} value={opt.value}>{opt.name}</option>)}
+    </React.Fragment>
+  )
+
+  const miningPoolDropDown = () => (
+    <div style={{marginTop: 20, textAlign: 'center', border: '0px solid RED'}}>
       <InputLabel style={{
-        fontSize: screen.width > 600 ? 28 : 22,
+        fontSize: screen.width > 600 ? 26 : 20,
+        //border: '1px solid RED', 
+        marginBottom: 10,
+      }}
+      >Choose Mining Pool</InputLabel>
+      <FormControl>
+        <Select
+          style={{
+            //border: '1px solid RED',
+            fontSize: screen.width > 600 ? 26 : 20
+          }}
+          native
+          value={selectedPool}
+          onChange={(e) => {
+            const newPool = e.target.value.toString().trim()
+            if (selectedPool !== newPool) {
+              setSelectedPool(newPool)
+            }
+          }}
+          inputProps={{
+            name: 'coin',
+            id: 'coin-select',
+          }}
+        >
+          {getMiningPoolOptions(selectedCoin)}
+        </Select>
+      </FormControl>
+    </div>
+  )
+
+  const coinDropDown = () => (
+    <div style={{marginTop: 10, textAlign: 'center', border: '0px solid RED'}}>
+      <InputLabel style={{
+        fontSize: screen.width > 600 ? 26 : 20,
         //border: '1px solid RED', 
         marginBottom: 10,
       }}
@@ -59,7 +112,7 @@ export const CryptoSettings: FC<{}> = () => {
         <Select
           style={{
             //border: '1px solid RED',
-            fontSize: screen.width > 600 ? 28 : 22
+            fontSize: screen.width > 600 ? 26 : 20
           }}
           native
           value={selectedCoin}
@@ -67,6 +120,7 @@ export const CryptoSettings: FC<{}> = () => {
             const newCoin = e.target.value.toString().trim()
             if (newCoin !== selectedCoin) {
               setSelectedCoin(newCoin)
+              setSelectedPool(MINING_POOLS[newCoin][0].value)
               setAddress('')
               setShowSaveButton(false)
               payoutAddressRef.current.clearAddress()
@@ -86,7 +140,7 @@ export const CryptoSettings: FC<{}> = () => {
 
   const settingsForm = () => {
     const onSaveClick = async () => {
-      await saveSettings(address, selectedCoin)
+      await saveSettings(address, selectedCoin, selectedPool)
       setSaveSuccess(true)
       setTimeout(() => {
         window.location.href = '/home'
@@ -96,7 +150,8 @@ export const CryptoSettings: FC<{}> = () => {
       <div style={{
         //border: '1px solid RED',
       }}>
-        {dropDown()}
+        {coinDropDown()}
+        {miningPoolDropDown()}
         {selectedCoin ? 
         <div style={{marginTop: 20, textAlign: 'center'}}>
           <PayoutAddress existingAddress={existingSettings ? existingSettings.walletAddress : ''} ref={payoutAddressRef} onChange={(isvalid, address) => {
@@ -114,10 +169,11 @@ export const CryptoSettings: FC<{}> = () => {
     <div style={{
       ...contentStyle,
       flexDirection: 'column',
-      //border: '1px solid GREEN',
+      //border: '3px solid GREEN',
       fontSize: 34,
       alignItems: 'center',
       justifyContent: 'center',
+      minHeight: 420
     }}>
       {settingsForm()}
     </div>
@@ -136,7 +192,7 @@ export const CryptoSettings: FC<{}> = () => {
   }}>
 
     <div style={headerStyle}>
-      <div style={{fontSize: screen.width > 600 ? 34 : 30}}><b>Crypto Settings</b></div>
+      <div style={{fontSize: screen.width > 600 ? 38 : 32}}><b>Crypto Settings</b></div>
     </div>
 
     {saveSuccess ? successDiv() : loading ? loadingDiv() : contentDiv()}
