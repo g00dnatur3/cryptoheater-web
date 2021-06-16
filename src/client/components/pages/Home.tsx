@@ -2,12 +2,34 @@ import React, { FC, useState, useEffect, useRef } from 'react';
 import { headerStyle, contentStyle } from '../styles'
 import { Alert, Spinner, Button } from 'reactstrap';
 import {loadSettings, saveSettings} from '../../helpers/ApiHelper'
+import { Pool } from '@material-ui/icons';
 
 // tslint:disable-next-line: variable-name
 export const Home: FC<{}> = () => {
 
   const [loading, setLoading] = useState(false)
   const [existingSettings, setExistingSettings] = useState(undefined)
+
+  const LINKS = {
+    BTG_miningfool: 'https://btg.miningfool.com/miner/@walletAddress',
+    BTG_2miners: 'https://btg.2miners.com/account/@walletAddress',
+    ETH_2miners: 'https://eth.2miners.com/account/@walletAddress',
+    ETH_ethermine: 'https://ethermine.org/miners/@walletAddress/dashboard'
+  }
+
+  function reverseString(str) {
+    return str.split("").reverse().join("");
+  }
+
+  const getMiningStatsLink = (settings) => {
+    const {pool, coin, walletAddress} = settings
+    const host = pool.split(':')[0]
+    const name = reverseString(reverseString(host).split('.')[1])
+    const key = `${coin}_${name}`
+    if (LINKS[key]) {
+      return LINKS[key].replace('@walletAddress', walletAddress)
+    }
+  }
 
   useEffect(() => {
     if (!existingSettings) {
@@ -72,7 +94,9 @@ export const Home: FC<{}> = () => {
         marginBottom: 20,
         textAlign: 'center'
       }}>
-        <Button style={{padding: 15, width: 250, height: 80}} color="primary" size="lg">See Mining Stats</Button>
+        <Button 
+          onClick={() => getMiningStatsLink(existingSettings)}
+          disabled={!existingSettings} style={{padding: 15, width: 250, height: 80}} color="primary" size="lg">See Mining Stats</Button>
       </div>
 
 
