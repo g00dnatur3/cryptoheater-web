@@ -12,6 +12,12 @@ export const isValidBtgAddress = async (address: string) => {
   return res ? res.data : res;
 }
 
+export const isValidRvnAddress = async (address: string) => {
+  console.log('ApiHelper.isValidRvnAddress', address)
+  const res = await axios.post('/api/isvalid_rvn_address', {address})
+  return res ? res.data : res;
+}
+
 export const saveSettings = async (walletAddress: string, coin: string, pool: string) => {
   console.log('ApiHelper.saveSettings', walletAddress)
   const res = await axios.post('/api/save', {walletAddress, coin, pool})

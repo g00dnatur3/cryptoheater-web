@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import BaseStyle from '../style/BaseStyle';
 import CoinImages from '../images/CoinImages';
-import {isValidBtgAddress, isValidEthAddress} from '../../helpers/ApiHelper'
+import {isValidBtgAddress, isValidEthAddress, isValidRvnAddress} from '../../helpers/ApiHelper'
 
 interface Props {
   style?: React.CSSProperties
@@ -100,13 +100,19 @@ export const PayoutAddress = forwardRef((props: Props, ref) => {
               try {
                 setAddress(value)
                 if (value.length > 25) {
+                  if (props.coin === "RVN") {
+                    const {isvalid} = await isValidRvnAddress(value)
+                    console.log('isValidRvnAddress:', isvalid)
+                    setIsValidAddress(isvalid)
+                    props.onChange(isvalid, value)
+                  }
                   if (props.coin === "BTG") {
                     const {isvalid} = await isValidBtgAddress(value)
                     console.log('isValidBtgAddress:', isvalid)
                     setIsValidAddress(isvalid)
                     props.onChange(isvalid, value)
                   }
-                  else if (props.coin === "ETH") {
+                  else if (props.coin === "ETH" || props.coin === "ETC") {
                     const {isvalid} = await isValidEthAddress(value)
                     console.log('isValidEthAddress:', isvalid)
                     setIsValidAddress(isvalid)

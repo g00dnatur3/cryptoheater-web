@@ -7,6 +7,16 @@ export const isValidBtgAddress = async (address) => {
   return res.data.isvalid || false
 }
 
+export const isValidRvnAddress = async (address) => {
+  const url = `https://ravencoin.network/address/${address}`
+  try {
+    await axios.post(url, {address})
+    return true
+  } catch (err) {
+    return false
+  }
+}
+
 /**
  * Checks if the given string is an address
  *

@@ -21,6 +21,14 @@ export default {
 
   ETH: {
     small: 'https://files.coinswitch.co/public/coins/eth.png'
+  },
+
+  ETC: {
+    small: 'https://files.coinswitch.co/public/coins/etc.png'
+  },
+
+  RVN: {
+    small: 'https://files.coinswitch.co/public/coins/rvn.png'
   }
 
 }

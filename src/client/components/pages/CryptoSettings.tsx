@@ -15,6 +15,15 @@ const MINING_POOLS = {
   ETH: [
     {name: '2miners.com', value: 'us-eth.2miners.com:2020'},
     {name: 'Ethermine.org', value: 'us2.ethermine.org:4444'},
+  ],
+  ETC: [
+    {name: 'Ethermine.org', value: 'us1-etc.ethermine.org:4444'},
+    {name: 'Nanopool.org', value: 'etc-us-west1.nanopool.org:19999'},
+    {name: '2miners.com', value: 'us-etc.2miners.com:1010'},
+  ],
+  RVN: [
+    {name: '2miners.com', value: 'us-rvn.2miners.com:6060'},
+    {name: 'Flypool.org', value: 'stratum-ravencoin.flypool.org:3333'},
   ]
 }
 
@@ -133,6 +142,8 @@ export const CryptoSettings: FC<{}> = () => {
         >
           <option value="BTG">BTG (BitcoinGold)</option>
           <option value="ETH">ETH (Ethereum)</option>
+          <option value="ETC">ETC (Ethereum Classic)</option>
+          <option value="RVN">ETC (Ravencoin)</option>
         </Select>
       </FormControl>
     </div>

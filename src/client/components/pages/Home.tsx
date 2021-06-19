@@ -14,7 +14,12 @@ export const Home: FC<{}> = () => {
     BTG_miningfool: 'https://btg.miningfool.com/miner/@walletAddress',
     BTG_2miners: 'https://btg.2miners.com/account/@walletAddress',
     ETH_2miners: 'https://eth.2miners.com/account/@walletAddress',
-    ETH_ethermine: 'https://ethermine.org/miners/@walletAddress/dashboard'
+    ETC_2miners: 'https://etc.2miners.com/account/@walletAddress',
+    ETH_ethermine: 'https://ethermine.org/miners/@walletAddress/dashboard',
+    ETC_ethermine: 'https://etc.ethermine.org/miners/@walletAddress/dashboard',
+    RVN_2miners: 'https://rvn.2miners.com/account/@walletAddress',
+    RVN_flypool: 'https://ravencoin.flypool.org/miners/@walletAddress/dashboard',
+    ETC_nanopool: 'https://etc.nanopool.org/account/@walletAddress'
   }
 
   function reverseString(str) {
@@ -95,7 +100,7 @@ export const Home: FC<{}> = () => {
         textAlign: 'center'
       }}>
         <Button 
-          onClick={() => getMiningStatsLink(existingSettings)}
+          onClick={() => window.location.href = getMiningStatsLink(existingSettings)}
           disabled={!existingSettings} style={{padding: 15, width: 250, height: 80}} color="primary" size="lg">See Mining Stats</Button>
       </div>
 
