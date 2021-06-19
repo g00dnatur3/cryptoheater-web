@@ -134,9 +134,9 @@ export const Home: FC<{}> = () => {
         alignItems: 'center',
       }}>
         <img src="/favicon.ico" style={{paddingRight: 2, width: 20, height: 20, marginBottom: 5}} />
-        <div style={{ fontSize: 14, color: 'grey' }}>C R Y P T O H E A T E R</div>
+        <div style={{ fontSize: 14, color: 'grey' }}>C R Y P T O H E A T E R . I O</div>
       </div>
-      <div style={{ fontSize: 14, color: 'grey' }}>v1.0.0</div>
+      <div style={{ fontSize: 12, color: 'grey' }}>v1.0.0</div>
     </div>
 
   </div>)
