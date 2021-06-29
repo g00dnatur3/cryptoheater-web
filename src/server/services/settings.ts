@@ -49,5 +49,6 @@ export const loadSettings = async () => {
 }
 
 export default {
-  saveSettings
+  saveSettings,
+  loadSettings
 }

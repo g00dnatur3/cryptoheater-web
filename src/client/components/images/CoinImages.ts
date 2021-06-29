@@ -29,6 +29,10 @@ export default {
 
   RVN: {
     small: 'https://files.coinswitch.co/public/coins/rvn.png'
+  },
+
+  BEAM: {
+    small: 'https://s2.coinmarketcap.com/static/img/coins/128x128/3702.png'
   }
 
 }

@@ -24,7 +24,6 @@ export const saveSettings = async (walletAddress: string, coin: string, pool: st
   return res ? res.data : res;
 }
 
-
 export const loadSettings = async () => {
   console.log('ApiHelper.loadSettings')
   const res = await axios.get('/api/load')

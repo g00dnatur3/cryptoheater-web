@@ -24,6 +24,11 @@ const MINING_POOLS = {
   RVN: [
     {name: '2miners.com', value: 'us-rvn.2miners.com:6060'},
     {name: 'Flypool.org', value: 'stratum-ravencoin.flypool.org:3333'},
+  ],
+  BEAM: [
+    {name: 'beam.leafpool.com', value: 'beam-us.leafpool.com:4444'},
+    {name: '2miners.com', value: 'us-beam.2miners.com:5252'},
+    {name: '2miners.com', value: 'us-beam.2miners.com:5252'},
   ]
 }
 
