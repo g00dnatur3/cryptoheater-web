@@ -22,6 +22,10 @@ const POOLS: any = {
     'asia-btg.2miners.com:4040'
   ],
 
+  BTG_coinfoundry: [
+    'pool.coinfoundry.org:3064'
+  ],
+
   ETH_2miners: [
     'eth.2miners.com:2020',
     'us-eth.2miners.com:2020',
@@ -65,7 +69,39 @@ const POOLS: any = {
     'etc-asia1.nanopool.org:19999',
     'etc-jp1.nanopool.org:19999',
     'etc-au1.nanopool.org:19999'   
-  ]
+  ],
+
+  ETH_nanopool: [
+    'eth-eu1.nanopool.org:9999',
+    'eth-eu2.nanopool.org:9999',
+    'eth-us-east1.nanopool.org:9999',
+    'eth-us-west1.nanopool.org:9999',
+    'eth-asia1.nanopool.org:9999',
+    'eth-jp1.nanopool.org:9999',
+    'eth-au1.nanopool.org:9999'   
+  ],
+
+  RVN_nanopool: [
+    'rvn-eu1.nanopool.org:12222',
+    'rvn-eu2.nanopool.org:12222',
+    'rvn-us-east1.nanopool.org:12222',
+    'rvn-us-west1.nanopool.org:12222',
+    'rvn-asia1.nanopool.org:12222',
+    'rvn-jp1.nanopool.org:12222',
+    'rvn-au1.nanopool.org:12222'   
+  ],
+
+  // BEAM_2miners: [
+  //   'beam.2miners.com:5252',
+  //   'us-beam.2miners.com:5252',
+  //   'asia-beam.2miners.com:5252'
+  // ],
+
+  // BEAM_leafpool: [
+  //   'beam-us.leafpool.com:4444',
+  //   'beam-eu.leafpool.com:4444',
+  //   'beam-asia.leafpool.com:4444'
+  // ]
 
 }
 
@@ -90,6 +126,10 @@ class PoolSelector {
     if (!pools) {
       console.log(`ERROR: POOLS[${key}] not found`)
       return null
+    }
+
+    if (pools.length === 1) {
+      return pools[0]
     }
 
     let result;

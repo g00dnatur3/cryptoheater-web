@@ -11,10 +11,12 @@ const MINING_POOLS = {
   BTG: [
     {name: 'MiningFool.com', value: 'btg.miningfool.com:3857'},
     {name: '2miners.com', value: 'us-btg.2miners.com:4040'},
+    {name: 'coinfoundry.org', value: 'pool.coinfoundry.org:3064'}
   ],
   ETH: [
     {name: '2miners.com', value: 'us-eth.2miners.com:2020'},
     {name: 'Ethermine.org', value: 'us2.ethermine.org:4444'},
+    {name: 'Nanopool.org', value: 'eth-us-west1.nanopool.org:9999'},
   ],
   ETC: [
     {name: 'Ethermine.org', value: 'us1-etc.ethermine.org:4444'},
@@ -24,12 +26,12 @@ const MINING_POOLS = {
   RVN: [
     {name: '2miners.com', value: 'us-rvn.2miners.com:6060'},
     {name: 'Flypool.org', value: 'stratum-ravencoin.flypool.org:3333'},
+    {name: 'Nanopool.org', value: 'rvn-us-west1.nanopool.org:12222'},
   ],
-  BEAM: [
-    {name: 'beam.leafpool.com', value: 'beam-us.leafpool.com:4444'},
-    {name: '2miners.com', value: 'us-beam.2miners.com:5252'},
-    {name: '2miners.com', value: 'us-beam.2miners.com:5252'},
-  ]
+  // BEAM: [
+  //   {name: 'beam.leafpool.com', value: 'beam-us.leafpool.com:4444'},
+  //   {name: '2miners.com', value: 'us-beam.2miners.com:5252'}
+  // ]
 }
 
 // tslint:disable-next-line: variable-name
