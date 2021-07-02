@@ -20,11 +20,11 @@ export const PayoutAddress = forwardRef((props: Props, ref) => {
 
   const [pristine, setPristine] = useState(true)
   const [isValidAddress, _setIsValidAddress] = useState(false)
-  const [address, setAddress] = useState('')
+  const [address, setAddress] = useState(' ')
 
   useImperativeHandle(ref, () => ({
     clearAddress() {
-      setAddress('')
+      setAddress(' ')
       setPristine(true)
     }
   }));
@@ -54,6 +54,8 @@ export const PayoutAddress = forwardRef((props: Props, ref) => {
     width: '100%',
     justifyContent: 'center',
   }
+
+  const onClick = (event) => event.target.select();
 
   return (
     <Grid container item xs={12} sm={12} style={itemStyle}>
@@ -87,6 +89,7 @@ export const PayoutAddress = forwardRef((props: Props, ref) => {
         }} src={coinImage}/>
 
         <TextField
+          onClick={onClick}
           error={error}
           style={{width: '90%', paddingRight: 30}}
           inputProps={{style: {fontSize: screen.width > 600 ? 26 : 20, border: '0px solid RED', height: 35}}}
@@ -95,7 +98,7 @@ export const PayoutAddress = forwardRef((props: Props, ref) => {
           margin="none"
           value={address}
           onChange={e => {
-            const value = e.target.value ? e.target.value.trim() : ''
+            const value = e.target.value ? e.target.value.trim() : ' '
             ;(async () => {
               try {
                 setAddress(value)
