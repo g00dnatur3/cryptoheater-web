@@ -53,6 +53,7 @@ export const CryptoSettings: FC<{}> = () => {
         console.log('loaded settings:', val)
         if (val) {
           if (val.walletAddress && val.coin && val.pool) {
+            console.log('GOT HERE :)')
             setExistingSettings(val)
             setSelectedCoin(val.coin)
             setAddress(val.walletAddress)
@@ -172,7 +173,7 @@ export const CryptoSettings: FC<{}> = () => {
         {miningPoolDropDown()}
         {selectedCoin ? 
         <div style={{marginTop: 20, textAlign: 'center'}}>
-          <PayoutAddress existingAddress={existingSettings ? existingSettings.walletAddress : ''} ref={payoutAddressRef} onChange={(isvalid, address) => {
+          <PayoutAddress existingAddress={existingSettings ? existingSettings.walletAddress : ' '} ref={payoutAddressRef} onChange={(isvalid, address) => {
             setShowSaveButton(isvalid)
             setAddress(address)
           }} coin={selectedCoin} />

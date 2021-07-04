@@ -34,7 +34,7 @@ export const PayoutAddress = forwardRef((props: Props, ref) => {
   }
 
   useEffect(() => {
-    if (props.existingAddress && !address) {
+    if (props.existingAddress && (!address || address.length < 2)) {
       setAddress(props.existingAddress)
     }
   }, [])
@@ -98,7 +98,7 @@ export const PayoutAddress = forwardRef((props: Props, ref) => {
           margin="none"
           value={address}
           onChange={e => {
-            const value = e.target.value ? e.target.value.trim() : ' '
+            const value = e.target.value && e.target.value.length > 1 ? e.target.value.trim() : ' '
             ;(async () => {
               try {
                 setAddress(value)
