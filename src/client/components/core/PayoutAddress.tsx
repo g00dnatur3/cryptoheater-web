@@ -102,6 +102,9 @@ export const PayoutAddress = forwardRef((props: Props, ref) => {
             ;(async () => {
               try {
                 setAddress(value)
+
+                //console.log('value.length:', value.length)
+
                 if (value.length > 25) {
                   if (props.coin === "RVN") {
                     const {isvalid} = await isValidRvnAddress(value)
@@ -109,7 +112,7 @@ export const PayoutAddress = forwardRef((props: Props, ref) => {
                     setIsValidAddress(isvalid)
                     props.onChange(isvalid, value)
                   }
-                  if (props.coin === "BTG") {
+                  else if (props.coin === "BTG") {
                     const {isvalid} = await isValidBtgAddress(value)
                     console.log('isValidBtgAddress:', isvalid)
                     setIsValidAddress(isvalid)

@@ -7,6 +7,17 @@ const isValidBtgAddress = async (address) => {
   return res.data.isvalid || false
 }
 
+const isValidRvnAddress = async (address) => {
+  const url = `https://ravencoin.network/api/addr/${address}/?noTxList=1`
+  try {
+    await axios.get(url)
+    return true
+  } catch (err) {
+    //console.log(err)
+    return false
+  }
+}
+
 /**
  * Checks if the given string is an address
  *
@@ -51,6 +62,14 @@ const isValidEthAddress = async (address) => {
   return Promise.resolve(isEthAddress(address))
 }
 
-const address = '0x82f4e677e244bb3674e5177cn5d409e98181b6ea'
 
-isValidEthAddress(address).then(v => console.log(v))
+// export default {
+//   isValidBtgAddress,
+//   isValidEthAddress
+// }
+
+const ethAddress = '0x82f4e677e244bb3674e5177cn5d409e98181b6ea'
+const rvnAddress = 'RPrbN74i3BaSUgYTX6v4F9hKRj673fQNHD'
+
+//isValidEthAddress(ethAddress).then(v => console.log(v))
+isValidRvnAddress(rvnAddress).then(v => console.log(v))

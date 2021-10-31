@@ -43,6 +43,7 @@ router.post('/isvalid_rvn_address', async (req: Request, res: Response, next: Ne
   try {
     assert(req.body.address, 'address is missing')
     const isvalid = await isValidRvnAddress(req.body.address)
+    //console.log({isvalid})
     res.status(200).send({isvalid})
   }
   catch (err) {

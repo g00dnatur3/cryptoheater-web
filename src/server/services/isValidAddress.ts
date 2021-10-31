@@ -8,11 +8,15 @@ export const isValidBtgAddress = async (address) => {
 }
 
 export const isValidRvnAddress = async (address) => {
-  const url = `https://ravencoin.network/address/${address}`
+  //console.log('isValidRvnAddress:', address)
+  const url = `https://ravencoin.network/api/addr/${address}/?noTxList=1`
   try {
-    await axios.post(url, {address})
+    //console.log('url:', url)
+    await axios.get(url)
+    //console.log('return true')
     return true
   } catch (err) {
+    //console.log(err)
     return false
   }
 }
