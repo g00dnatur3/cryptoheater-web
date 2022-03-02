@@ -91,17 +91,23 @@ const POOLS: any = {
     'rvn-au1.nanopool.org:12222'   
   ],
 
-  // BEAM_2miners: [
-  //   'beam.2miners.com:5252',
-  //   'us-beam.2miners.com:5252',
-  //   'asia-beam.2miners.com:5252'
-  // ],
+  BEAM_2miners: [
+    'beam.2miners.com:5252',
+    'us-beam.2miners.com:5252',
+    'asia-beam.2miners.com:5252'
+  ],
 
-  // BEAM_leafpool: [
-  //   'beam-us.leafpool.com:4444',
-  //   'beam-eu.leafpool.com:4444',
-  //   'beam-asia.leafpool.com:4444'
-  // ]
+  BEAM_leafpool: [
+    'beam-us.leafpool.com:4444',
+    'beam-eu.leafpool.com:4444',
+    'beam-asia.leafpool.com:4444'
+  ],
+
+  BEAM_flypool: [
+    'us1-beam.flypool.org:3333',
+    'eu1-beam.flypool.org:3333',
+    'asia1-beam.flypool.org:3333'
+  ]
 
 }
 

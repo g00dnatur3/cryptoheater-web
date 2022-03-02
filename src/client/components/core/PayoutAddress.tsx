@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import BaseStyle from '../style/BaseStyle';
 import CoinImages from '../images/CoinImages';
-import {isValidBtgAddress, isValidEthAddress, isValidRvnAddress} from '../../helpers/ApiHelper'
+import {isValidBtgAddress, isValidEthAddress, isValidRvnAddress, isValidBeamAddress} from '../../helpers/ApiHelper'
 
 interface Props {
   style?: React.CSSProperties
@@ -45,7 +45,11 @@ export const PayoutAddress = forwardRef((props: Props, ref) => {
   let helperText = '';
   const error = !pristine && !isValidAddress
   if (error) {
-    helperText = `invalid ${props.coin} address`
+    helperText = `WARN: ${props.coin} address looks incorrect`
+  }
+
+  if (props.coin === 'BEAM') {
+    helperText = `WARN: ${props.coin} address cannot be validated`
   }
 
   const itemStyle = {
@@ -115,6 +119,12 @@ export const PayoutAddress = forwardRef((props: Props, ref) => {
                   else if (props.coin === "BTG") {
                     const {isvalid} = await isValidBtgAddress(value)
                     console.log('isValidBtgAddress:', isvalid)
+                    setIsValidAddress(isvalid)
+                    props.onChange(isvalid, value)
+                  }
+                  else if (props.coin === "BEAM") {
+                    const {isvalid} = await isValidBeamAddress(value)
+                    console.log('isValidBeamAddress:', isvalid)
                     setIsValidAddress(isvalid)
                     props.onChange(isvalid, value)
                   }

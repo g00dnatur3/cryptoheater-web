@@ -7,6 +7,24 @@ export const isValidBtgAddress = async (address) => {
   return res.data.isvalid || false
 }
 
+//https://minerstat.com/wallet-address-validator/beam
+
+export const isValidBeamAddress = async (address) => {
+
+  // const formData = new FormData();
+  // formData.append('check', address);
+  // const config = {
+  //   method: 'post',
+  //   url: 'https://minerstat.com/wallet-address-validator/beam',
+  //   data: formData,
+  //   headers: { "Content-Type": "multipart/form-data" },
+  // }
+  // const res = await axios.post(config)
+  // return res.data.isvalid || false
+
+  return true
+}
+
 export const isValidRvnAddress = async (address) => {
   //console.log('isValidRvnAddress:', address)
   const url = `https://ravencoin.network/api/addr/${address}/?noTxList=1`

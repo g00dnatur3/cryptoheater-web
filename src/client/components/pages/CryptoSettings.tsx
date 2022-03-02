@@ -153,6 +153,7 @@ export const CryptoSettings: FC<{}> = () => {
           <option value="ETH">ETH (Ethereum)</option>
           <option value="ETC">ETC (Ethereum Classic)</option>
           <option value="RVN">RVN (Ravencoin)</option>
+          <option value="BEAM">BEAM (Beam)</option>
         </Select>
       </FormControl>
     </div>
@@ -175,7 +176,7 @@ export const CryptoSettings: FC<{}> = () => {
         {selectedCoin ? 
         <div style={{marginTop: 20, textAlign: 'center'}}>
           <PayoutAddress existingAddress={existingSettings ? existingSettings.walletAddress : ' '} ref={payoutAddressRef} onChange={(isvalid, address) => {
-            setShowSaveButton(isvalid)
+            setShowSaveButton(true)
             setAddress(address)
           }} coin={selectedCoin} />
           <Button onClick={onSaveClick} disabled={!showSaveButton} style={{marginTop: 25}} size="lg" color="primary">Save</Button>

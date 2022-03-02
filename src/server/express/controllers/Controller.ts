@@ -2,7 +2,7 @@ import assert from 'assert';
 import { NextFunction, Request, Response, Router } from 'express';
 import getLog from '../../../utils/log';
 import HttpError from '../HttpError';
-import {isValidBtgAddress, isValidEthAddress, isValidRvnAddress} from '../../services/isValidAddress'
+import {isValidBtgAddress, isValidEthAddress, isValidRvnAddress, isValidBeamAddress} from '../../services/isValidAddress'
 import {selectPool} from '../../services/PoolSelector'
 import {
   saveSettings,
@@ -17,6 +17,19 @@ router.post('/isvalid_eth_address', async (req: Request, res: Response, next: Ne
   try {
     assert(req.body.address, 'address is missing')
     const isvalid = await isValidEthAddress(req.body.address)
+    res.status(200).send({isvalid})
+  }
+  catch (err) {
+    log.error(err)
+    return next(new HttpError(`Internal error: ${err.message || err}`, 500))
+  }
+})
+
+router.post('/isvalid_beam_address', async (req: Request, res: Response, next: NextFunction) => {
+  log.info('/isvalid_beam_address body', req.body)
+  try {
+    assert(req.body.address, 'address is missing')
+    const isvalid = await isValidBeamAddress(req.body.address)
     res.status(200).send({isvalid})
   }
   catch (err) {

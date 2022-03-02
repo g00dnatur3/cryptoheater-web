@@ -12,6 +12,12 @@ export const isValidBtgAddress = async (address: string) => {
   return res ? res.data : res;
 }
 
+export const isValidBeamAddress = async (address: string) => {
+  console.log('ApiHelper.isValidBeamAddress', address)
+  const res = await axios.post('/api/isvalid_beam_address', {address})
+  return res ? res.data : res;
+}
+
 export const isValidRvnAddress = async (address: string) => {
   console.log('ApiHelper.isValidRvnAddress', address)
   const res = await axios.post('/api/isvalid_rvn_address', {address})
