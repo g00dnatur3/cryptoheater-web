@@ -28,10 +28,11 @@ const MINING_POOLS = {
     {name: 'Flypool.org', value: 'stratum-ravencoin.flypool.org:3333'},
     {name: 'Nanopool.org', value: 'rvn-us-west1.nanopool.org:12222'},
   ],
-  // BEAM: [
-  //   {name: 'beam.leafpool.com', value: 'beam-us.leafpool.com:4444'},
-  //   {name: '2miners.com', value: 'us-beam.2miners.com:5252'}
-  // ]
+  BEAM: [
+    {name: 'beam.leafpool.com', value: 'beam-us.leafpool.com:4444'},
+    {name: '2miners.com', value: 'us-beam.2miners.com:5252'},
+    {name: 'Flypool.org', value: 'us1-beam.flypool.org:3333'},
+  ]
 }
 
 // tslint:disable-next-line: variable-name

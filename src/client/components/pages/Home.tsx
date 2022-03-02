@@ -15,16 +15,17 @@ export const Home: FC<{}> = () => {
     BTG_2miners: 'https://btg.2miners.com/account/@walletAddress',
     BTG_coinfoundry: 'https://coinfoundry.org/pool/btg/account/@walletAddress',
     ETH_2miners: 'https://eth.2miners.com/account/@walletAddress',
-    ETC_2miners: 'https://etc.2miners.com/account/@walletAddress',
+    ETH_nanopool: 'https://eth.nanopool.org/account/@walletAddress',
     ETH_ethermine: 'https://ethermine.org/miners/@walletAddress/dashboard',
-    ETC_ethermine: 'https://etc.ethermine.org/miners/@walletAddress/dashboard',
     RVN_2miners: 'https://rvn.2miners.com/account/@walletAddress',
     RVN_flypool: 'https://ravencoin.flypool.org/miners/@walletAddress/dashboard',
-    ETC_nanopool: 'https://etc.nanopool.org/account/@walletAddress',
-    ETH_nanopool: 'https://eth.nanopool.org/account/@walletAddress',
     RVN_nanopool: 'https://rvn.nanopool.org/account/@walletAddress',
-    // BEAM_2miners: 'https://beam.2miners.com/account/@walletAddress',
-    // BEAM_leafpool: 'https://beam.2miners.com/account/@walletAddress',
+    ETC_nanopool: 'https://etc.nanopool.org/account/@walletAddress',
+    ETC_2miners: 'https://etc.2miners.com/account/@walletAddress',
+    ETC_ethermine: 'https://etc.ethermine.org/miners/@walletAddress/dashboard',
+    BEAM_2miners: 'https://beam.2miners.com/account/@walletAddress',
+    BEAM_leafpool: 'https://beam.leafpool.com/miners/@walletAddress',
+    BEAM_flypool: 'https://beam.flypool.org/miners/@walletAddress/dashboard',
   }
 
   function reverseString(str) {
