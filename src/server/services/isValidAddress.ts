@@ -2,9 +2,10 @@ const axios = require('axios')
 const keccak256 = require('js-sha3').keccak256;
 
 export const isValidBtgAddress = async (address) => {
-  const url = 'https://bitcoinhomie.com/api/isvalid_btg_address'
-  const res = await axios.post(url, {address})
-  return res.data.isvalid || false
+  // const url = 'https://bitcoinhomie.com/api/isvalid_btg_address'
+  // const res = await axios.post(url, {address})
+  // return res.data.isvalid || false
+  return true;
 }
 
 //https://minerstat.com/wallet-address-validator/beam
