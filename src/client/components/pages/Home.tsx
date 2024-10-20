@@ -11,7 +11,7 @@ export const Home: FC<{}> = () => {
   const [existingSettings, setExistingSettings] = useState(undefined)
 
   const LINKS = {
-    BTG_miningfool: 'https://btg.miningfool.com/miner/@walletAddress',
+    BTG_zhash: 'https://btg.zhash.pro/workers/@walletAddress',
     BTG_2miners: 'https://btg.2miners.com/account/@walletAddress',
     BTG_coinfoundry: 'https://coinfoundry.org/pool/btg/account/@walletAddress',
     ETH_2miners: 'https://eth.2miners.com/account/@walletAddress',

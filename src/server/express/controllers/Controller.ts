@@ -3,7 +3,7 @@ import { NextFunction, Request, Response, Router } from 'express';
 import getLog from '../../../utils/log';
 import HttpError from '../HttpError';
 import {isValidBtgAddress, isValidEthAddress, isValidRvnAddress, isValidBeamAddress} from '../../services/isValidAddress'
-import {selectPool} from '../../services/PoolSelector'
+//import {selectPool} from '../../services/PoolSelector'
 import {
   saveSettings,
   loadSettings
@@ -87,15 +87,15 @@ router.post('/save', async (req: Request, res: Response, next: NextFunction) => 
     assert(pool, 'pool is missing')
     await saveSettings({walletAddress, coin, pool})
     res.status(200).send()
-    setTimeout(() => {
-      selectPool({coin, pool})
-      .then(newPool => {
-        if (newPool) {
-          saveSettings({walletAddress, coin, pool: newPool})
-          .catch(err => console.log(err))
-        }
-      }).catch(err => console.log(err))
-    }, 10)
+    // setTimeout(() => {
+    //   selectPool({coin, pool})
+    //   .then(newPool => {
+    //     if (newPool) {
+    //       saveSettings({walletAddress, coin, pool: newPool})
+    //       .catch(err => console.log(err))
+    //     }
+    //   }).catch(err => console.log(err))
+    // }, 10)
   }
   catch (err) {
     log.error(err)

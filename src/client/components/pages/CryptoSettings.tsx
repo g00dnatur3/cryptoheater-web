@@ -9,9 +9,8 @@ import {loadSettings, saveSettings} from '../../helpers/ApiHelper'
 
 const MINING_POOLS = {
   BTG: [
-    {name: 'MiningFool.com', value: 'btg.miningfool.com:3857'},
+    {name: 'zhash.pro', value: 'us1.zhash.pro:5059'},
     {name: '2miners.com', value: 'us-btg.2miners.com:4040'},
-    {name: 'coinfoundry.org', value: 'pool.coinfoundry.org:3064'}
   ],
   ETH: [
     {name: '2miners.com', value: 'us-eth.2miners.com:2020'},
